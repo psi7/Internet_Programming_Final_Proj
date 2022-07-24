@@ -1,12 +1,7 @@
-from django.http import (
-    Http404,
-    HttpResponse,
-    HttpResponseRedirect,
-    HttpResponseBadRequest,
-)
+from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.shortcuts import render
 from django.http import HttpResponse
-from events.models import Events,Users,Location
+from events.models import Events,Users,Location, Categories, SubCategories
 from django import forms
 from django.urls import reverse
 import logging
@@ -20,4 +15,8 @@ def contact(request):
 
 
 def index(request):
-    return render(request, "events/index.html", {"events": ""})
+    events = Events.objects.all()
+    context={
+        'events': events,
+    }
+    return render(request, "homepage.html", context=context)
